@@ -166,11 +166,11 @@ void ws2812_init(void)
  */
 void ws2812_write_led(uint16_t led, uint8_t r, uint8_t g, uint8_t b) 
 {
-    static bool s_init = false;
+    static bool is_init = false;
     uint8_t bit;
-    if (!s_init) {
+    if (!is_init) {
         ws2812_init();
-        s_init = true;
+        is_init = true;
     }
     for (bit = 0; bit < 8; bit++) {
         ws2812_frame_buffer[WS2812_BIT(led, 1, bit)] = ((r >> bit) & 0x01) ? WS2812_DUTYCYCLE_1 : WS2812_DUTYCYCLE_0;
@@ -187,11 +187,11 @@ void ws2812_write_led(uint16_t led, uint8_t r, uint8_t g, uint8_t b)
  */
 void ws2812_set_leds(ws2812_byte_t* ledarray, uint16_t num) 
 {
-    static bool s_init = false;
+    static bool is_init = false;
     uint16_t i;
-    if (!s_init) {
+    if (!is_init) {
         ws2812_init();
-        s_init = true;
+        is_init = true;
     }
     for (i = 0; i < num; i++) {
         ws2812_write_led(i, ledarray[i].r, ledarray[i].g, ledarray[i].b);
